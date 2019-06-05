@@ -1,2 +1,7 @@
 # text-manager
-Text manager allows to manage texts
+
+Simple lightweight text manager allows to manage texts, e.g. localize texts in web app
+
+## Installation
+
+`npm i text-manager -S`

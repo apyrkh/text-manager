@@ -1,0 +1,26 @@
+{
+  "name": "text-manager",
+  "version": "0.0.1",
+  "description": "Simple lightweight text manager allows to manage texts, e.g. localize texts in web app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apyrkh/text-manager.git"
+  },
+  "keywords": [
+    "js",
+    "text manager",
+    "localization",
+    "lightweight",
+    "simple"
+  ],
+  "author": "Aliaksandr Pyrkh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/apyrkh/text-manager/issues"
+  },
+  "homepage": "https://github.com/apyrkh/text-manager#readme"
+}
