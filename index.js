@@ -1,4 +1,2 @@
-import TextManager from './src/TextManager';
-
-
-export default TextManager;
+export TextManager from './src/TextManager';
+export DefaultTextManager from './src/DefaultTextManager';

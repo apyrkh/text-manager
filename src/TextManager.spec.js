@@ -3,30 +3,52 @@ import { describe } from 'mocha';
 import TextManager from './TextManager';
 
 
-const textsBundle = {
-  'text.hello': 'Hello',
-  'text.items_found': '{{0}} items found',
-  'text.total_pages': '{{count}} pages',
-};
+describe('TextManager tests', function() {
+  let l10n;
 
-describe('TextManager:', function() {
-  describe('no middleware', function() {
-    let l10n;
+  describe('without middleware', function() {
     beforeEach(function() {
       l10n = new TextManager();
     });
 
-    const helloCode = 'text.hello';
-    const helloText = 'Text';
+    const textCode = 'code.code';
+    const text = 'Text';
     it('should return text by the code', function() {
       l10n.registerBundle('test', {
-        [helloCode]: helloText
+        [textCode]: text
       });
-      assert.strictEqual(l10n.getText(helloCode), helloText);
+      assert.strictEqual(l10n.getText(textCode), text);
     });
 
-    it(`should return undefined if text is unregistered`, function() {
-      assert.strictEqual(l10n.getText(helloCode), undefined);
+    it(`should return undefined if text with the code is not registered`, function() {
+      assert.strictEqual(l10n.getText(textCode), undefined);
+    });
+  });
+
+  describe('with middleware', function() {
+    function addZeroMiddleware(text) {
+      return text + '0';
+    }
+
+    function addOneMiddleware(text) {
+      return text + '1';
+    }
+
+    beforeEach(function() {
+      l10n = new TextManager([addZeroMiddleware, addOneMiddleware]);
+    });
+
+    const textCode = 'code.code';
+    const text = 'Text';
+    it(`should return modified by the middleware text by the code`, function() {
+      l10n.registerBundle('test', {
+        [textCode]: text
+      });
+      assert.strictEqual(l10n.getText(textCode), `${text}01`);
+    });
+
+    it(`should use middleware even if text with the code is not registered`, function() {
+      assert.strictEqual(l10n.getText(textCode), 'undefined01');
     });
   });
 });

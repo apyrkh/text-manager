@@ -1,14 +1,18 @@
-export default function TextManager(middlewares) {
+export default function TextManager(middleware) {
+  if (middleware && !Array.isArray(middleware))
+    throw new Error('TextManager middleware has wrong type (must be an array or undefined)');
+
   const keys = [];
   const bundleTexts = {};
 
-  function applyMiddlewares(text, parameters, code) {
-    if (!middlewares) return text;
+  function applyMiddleware(text, parameters, code) {
+    if (!middleware) return text;
 
-    return middlewares.reduce((prevText, middleware, index) => {
-      if (typeof middleware !== 'function') throw new Error('TextManager: middleware [' + index + '] is not a function');
+    return middleware.reduce((prevText, middlewareItem, index) => {
+      if (typeof middlewareItem !== 'function')
+        throw new Error('TextManager middleware[' + index + '] has wrong type (must be a function)');
 
-      return middleware(prevText, parameters, code);
+      return middlewareItem(prevText, parameters, code);
     }, text);
   }
 
@@ -20,15 +24,15 @@ export default function TextManager(middlewares) {
       if (typeof bundle !== 'object') throw new Error('TextManager: parameters is neither an object nor an array');
 
       // extend bundleTexts
-      for (let key in bundle) {
-        if (bundle.hasOwnProperty(key)) {
-          bundleTexts[key] = bundle[key];
+      for (let code in bundle) {
+        if (bundle.hasOwnProperty(code)) {
+          bundleTexts[code] = bundle[code];
         }
       }
       keys.push(key);
     },
     getText(code, parameters) {
-      return applyMiddlewares(bundleTexts[code], parameters, code);
+      return applyMiddleware(bundleTexts[code], parameters, code);
     }
   };
 }

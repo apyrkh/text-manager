@@ -3,6 +3,11 @@
   "version": "0.0.2",
   "description": "Simple lightweight text manager allows to manage texts, e.g. localize texts in web app",
   "main": "index.js",
+  "files": [
+    "/src/middleware/*",
+    "/src/TextManager.js",
+    "/src/DefaultTextManager.js"
+  ],
   "scripts": {
     "test": "mocha -r esm src/**/*.spec.js"
   },
