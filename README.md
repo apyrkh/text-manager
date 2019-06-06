@@ -1,6 +1,6 @@
 # text-manager
 
-Simple lightweight text manager allows to manage texts, e.g. localize texts in web app
+Simple lightweight text manager allows to manage texts, e.g. localize texts in web application
 
 ## Installation
 
