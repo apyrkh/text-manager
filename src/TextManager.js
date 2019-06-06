@@ -3,7 +3,7 @@ export default function TextManager(middleware) {
     throw new Error('TextManager middleware has wrong type (must be an array or undefined)');
 
   const keys = [];
-  const bundleTexts = {};
+  const texts = {};
 
   function applyMiddleware(text, parameters, code) {
     if (!middleware) return text;
@@ -17,22 +17,22 @@ export default function TextManager(middleware) {
   }
 
   return {
-    registerBundle(key, bundle) {
+    registerTexts(key, textsBundle) {
       // skip if resources with given key have been already registered
       if (keys.indexOf(key) > -1) return;
 
-      if (typeof bundle !== 'object') throw new Error('TextManager: parameters is neither an object nor an array');
+      if (typeof textsBundle !== 'object') throw new Error('TextManager: parameters is neither an object nor an array');
 
-      // extend bundleTexts
-      for (let code in bundle) {
-        if (bundle.hasOwnProperty(code)) {
-          bundleTexts[code] = bundle[code];
+      // extend texts
+      for (let code in textsBundle) {
+        if (textsBundle.hasOwnProperty(code)) {
+          texts[code] = textsBundle[code];
         }
       }
       keys.push(key);
     },
     getText(code, parameters) {
-      return applyMiddleware(bundleTexts[code], parameters, code);
+      return applyMiddleware(texts[code], parameters, code);
     }
   };
 }
