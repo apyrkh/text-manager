@@ -50,9 +50,9 @@ Example:
 
 ### Default middleware
 
-By default the following middleware are used in `TextManager`:
+The following middleware is used in `DefaultTextManager`:
 - `text-manager/middleware/InsertParams` - inserts params in the text
-- `text-manager/middleware/UseCodeIfNoText` - returns code if a text by the code is not found
+- `text-manager/middleware/UseCodeIfNoText` - returns the code if a text is not found
 
 ### Custom middleware
 
@@ -85,7 +85,7 @@ textManager.getText('button.open') === 'Open Hello World!';
 ### TextManager API:
 
 - `constructor(middleware)`
-  - `middleware`, array of middleware functions
+  - `middleware`, array of [middleware](#middleware) functions
 
 - `registerTexts(key, textsBundle)`
   - `key`, string - the key of a bundle
@@ -93,13 +93,13 @@ textManager.getText('button.open') === 'Open Hello World!';
 
 - `getText(code, parameters)`
   - `code`, string - the code of a text
-  - `parameters`, array/object - parameters, e.g. `[5]`, `{ seconds: 5 }`
+  - `parameters`, array/object - parameters, e.g. `[5, 'abc']`, `{ seconds: 5 }`
 
 ### Middleware
 
 Middleware is a function which gets `text`, `parameters` and `code` and returns text.
 
 - `function(text, parameters, code)` - returns text
-  - `text`, string - registered text or text from previous middleware
+  - `text`, string - initial text or text from previous middleware
   - `parameters`, object/array - parameters
   - `code`, string - the code of a text
