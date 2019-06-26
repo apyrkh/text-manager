@@ -19,7 +19,7 @@ const buttonTexts = {
   'button.open_in': 'Open in {{0}} seconds',
   'button.close_in': 'Close in {{seconds}} seconds',
 };
-textManager.registerTexts('buttons', buttonTexts);
+textManager.addTexts('buttons', buttonTexts);
 
 // 3. use it
 textManager.getText('button.open') === 'Open'; // get a text without parameters
@@ -74,7 +74,7 @@ const buttonTexts = {
   'button.open': 'Open',
 };
 const textManager = new TextManager([CustomMiddleware1, CustomMiddleware2]);
-textManager.registerTexts('buttons', buttonTexts);
+textManager.addTexts('buttons', buttonTexts);
 
 // get text
 textManager.getText('button.open') === 'Open Hello World!';
@@ -87,7 +87,7 @@ textManager.getText('button.open') === 'Open Hello World!';
 - `constructor(middleware)`
   - `middleware`, array of [middleware](#middleware) functions
 
-- `registerTexts(key, textsBundle)`
+- `addTexts(key, textsBundle)`
   - `key`, string - the key of a bundle
   - `textsBundle`, object - a flat object where key is a `code` and value is a `text`, e.g. `{ 'button.open': 'Open' }`
 

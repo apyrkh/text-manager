@@ -27,19 +27,19 @@ describe('TextManager tests', function() {
     });
 
     it('should return text by the code', function() {
-      textManager.registerTexts('test', {
+      textManager.addTexts('test', {
         [textCode]: text
       });
       assert.strictEqual(textManager.getText(textCode), text);
     });
 
     it('should skip multiple registrations for the same key', function() {
-      textManager.registerTexts('test', {
+      textManager.addTexts('test', {
         [textCode]: text
       });
 
       const newCode = 'code.new_text';
-      textManager.registerTexts('test', {
+      textManager.addTexts('test', {
         [textCode]: 'Overridden text',
         [newCode]: 'Multi registration'
       });
@@ -58,7 +58,7 @@ describe('TextManager tests', function() {
     });
 
     it(`should return modified by the middleware text by the code`, function() {
-      textManager.registerTexts('test', {
+      textManager.addTexts('test', {
         [textCode]: text
       });
       assert.strictEqual(textManager.getText(textCode), `${text}01`);
