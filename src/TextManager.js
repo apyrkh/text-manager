@@ -2,8 +2,7 @@
  * @param middleware - array of functions, middleware
  */
 export default function TextManager(middleware) {
-  if (middleware && !Array.isArray(middleware))
-    throw new Error('TextManager: middleware must be an array or undefined');
+  if (middleware && !Array.isArray(middleware)) throw new Error('TextManager: middleware must be an array or undefined');
 
   const keys = [];
   const texts = {};
@@ -12,8 +11,7 @@ export default function TextManager(middleware) {
     if (!middleware) return text;
 
     return middleware.reduce((prevText, middlewareItem, index) => {
-      if (typeof middlewareItem !== 'function')
-        throw new Error('TextManager: middleware[' + index + '] must be a function');
+      if (typeof middlewareItem !== 'function') throw new Error('TextManager: middleware[' + index + '] must be a function');
 
       return middlewareItem(prevText, parameters, code);
     }, text);
@@ -23,7 +21,7 @@ export default function TextManager(middleware) {
    * @param key - any, unique key of the texts bundle
    * @param textsBundle - plain object, object with texts like { [code]: <text> }
    */
-  function addTexts(key, textsBundle) {
+  this.addTexts = function(key, textsBundle) {
     // skip if resources with given key have been already registered
     if (keys.indexOf(key) > -1) return;
 
@@ -36,19 +34,14 @@ export default function TextManager(middleware) {
       }
     }
     keys.push(key);
-  }
+  };
 
   /**
    * @param code - string, the code of the text
    * @param parameters - array/object, parameters if necessary
    * @returns string, text processed by the middleware
    */
-  function getText(code, parameters) {
+  this.getText = function(code, parameters) {
     return applyMiddleware(texts[code], parameters, code);
-  }
-
-  return {
-    addTexts,
-    getText,
   };
 }

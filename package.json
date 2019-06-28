@@ -1,7 +1,7 @@
 {
   "name": "text-manager",
-  "version": "0.0.4",
-  "description": "Simple lightweight text manager allows to manage texts, e.g. localize texts in web app",
+  "version": "1.0.0",
+  "description": "Lightweight extensible text manager allows to manage texts, e.g. localize texts in web app",
   "main": "index.js",
   "files": [
     "/src/middleware/*",
@@ -19,8 +19,7 @@
     "js",
     "text manager",
     "localization",
-    "lightweight",
-    "simple"
+    "lightweight"
   ],
   "author": "Aliaksandr Pyrkh",
   "license": "MIT",

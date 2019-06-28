@@ -1,10 +1,12 @@
 # text-manager
 
-Simple lightweight text manager allows to manage texts, e.g. localize texts in web application
+Lightweight extensible text manager allows to manage texts, e.g. localize texts in web application
+
 
 ## Installation
 
 `npm i text-manager -S`
+
 
 ## TL;DR
 
@@ -27,14 +29,16 @@ textManager.getText('button.open_in', [5]) === 'Open in 5 seconds'; // get a tex
 textManager.getText('button.close_in', { seconds: 5 }) === 'Close in 5 seconds'; // get a text with named parameters
 ```
 
+
 ## Getting started
 
-In common case text manager is used to get a text or a parameterized text by the code.
+Text manager is used to get a text or a parameterized text by the code.
+It can also be customized for additional text changes or modifications.
 
 ### Texts bundle
 
-Texts bundle is an object where a key is the `code` and a value is the `text`.
-`text` may contain or may not contain parameters.
+Texts bundle is a plain object where a key is the `code` and a value is the `text`.
+Text may contain or may not contain parameters.
 Parameter is a number or a variable name. Parameter must be surrounded with double braces `{{<parameter>}}`. 
 
 Example:
@@ -46,19 +50,38 @@ Example:
 }
 ```
 
-## Advanced guide
+### Default text manager
 
-### Default middleware
+`DefaultTextManager` is used get a parameterized text by the code. If a text is not found it returns the code.
 
-The following middleware is used in `DefaultTextManager`:
+Example:
+```javascript
+import { DefaultTextManager } from 'text-manager';
+const textManager = new DefaultTextManager();
+textManager.addTexts('buttons', buttonTexts);
+
+textManager.getText('button.open'); // 'Open'
+textManager.getText('button.open_in', [5]); // 'Open in 5 seconds'
+textManager.getText('button.close_in', { seconds: 5 }); // 'Close in 5 seconds'
+textManager.getText('button.save'); // 'button.save' - there is no text for the code
+```
+
+### Middleware
+
+In some cases addition text modifications are needed, e.g. parsing markdown, formatting numbers, dates and etc.
+This can be reached by using `TextManager` with a custom list of [middleware](#middleware).
+
+Middleware is a function which receives `text`, `parameters` and `code` and must return a text.
+Middleware functions are being executed one by one in sequence. Each of them receives text from the previous one.
+The first one receives original text(or `undefined` if it's not found).
+
+The following middleware functions are built-in and used in `DefaultTextManager`:
 - `text-manager/middleware/InsertParams` - inserts params in the text
 - `text-manager/middleware/UseCodeIfNoText` - returns the code if a text is not found
 
-### Custom middleware
+The result of execution of the last one will be returned by `TextManger`.
 
-In some cases it's needed to specify custom set of middleware, e.g. parsing markdown, formatting numbers, dates and etc.
-In this case text manager can be used with a custom set of middleware.
-
+Example:
 ```javascript
 import { TextManager } from 'text-manager';
 
@@ -80,9 +103,10 @@ textManager.addTexts('buttons', buttonTexts);
 textManager.getText('button.open') === 'Open Hello World!';
 ```
 
+
 ## API
 
-### TextManager API:
+### TextManager
 
 - `constructor(middleware)`
   - `middleware`, array of [middleware](#middleware) functions
@@ -97,9 +121,7 @@ textManager.getText('button.open') === 'Open Hello World!';
 
 ### Middleware
 
-Middleware is a function which gets `text`, `parameters` and `code` and returns text.
-
-- `function(text, parameters, code)` - returns text
+- `function(text, parameters, code)` - returns string
   - `text`, string - initial text or text from previous middleware
   - `parameters`, object/array - parameters
   - `code`, string - the code of a text
