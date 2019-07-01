@@ -3,8 +3,8 @@ import { describe } from 'mocha';
 import TextManager from './TextManager';
 
 
-const textCode = 'code.text';
-const text = 'Text';
+const textCode = 'text.hello';
+const text = 'Hello';
 
 function addZeroMiddleware(text) {
   return text + '0';

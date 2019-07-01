@@ -6,7 +6,7 @@ import DefaultTextManager from './DefaultTextManager';
 const textsBundle = {
   'text.hello': 'Hello',
   'text.hello_with_numeric_parameter': 'Hello {{0}}',
-  'text.hello_with_named_parameter': 'Text {{value}}',
+  'text.hello_with_named_parameter': 'Hello {{value}}',
 };
 
 describe('DefaultTextManager tests', function() {
@@ -24,18 +24,16 @@ describe('DefaultTextManager tests', function() {
 
   it('should return text by the code', function() {
     const textCode = 'text.hello';
-    assert.strictEqual(textManager.getText(textCode), textsBundle[textCode]);
+    assert.strictEqual(textManager.getText(textCode), 'Hello');
   });
 
   it('should return text by the code with numeric parameter', function() {
     const textCode = 'text.hello_with_numeric_parameter';
-    const parameter = 'Peter';
-    assert.strictEqual(textManager.getText(textCode, [parameter]), textsBundle[textCode].replace('{{0}}', parameter));
+    assert.strictEqual(textManager.getText(textCode, ['Peter']), 'Hello Peter');
   });
 
   it('should return text by the code with named parameter', function() {
     const textCode = 'text.hello_with_named_parameter';
-    const parameter = 'Peter';
-    assert.strictEqual(textManager.getText(textCode, { value: parameter }), textsBundle[textCode].replace('{{value}}', parameter));
+    assert.strictEqual(textManager.getText(textCode, { value: 'Peter' }), 'Hello Peter');
   });
 });

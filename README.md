@@ -33,13 +33,13 @@ textManager.getText('button.close_in', { seconds: 5 }) === 'Close in 5 seconds';
 ## Getting started
 
 Text manager is used to get a text or a parameterized text by the code.
-It can also be customized for additional text changes or modifications.
+It can also be extended for additional text changes or modifications.
 
 ### Texts bundle
 
 Texts bundle is a plain object where a key is the `code` and a value is the `text`.
-Text may contain or may not contain parameters.
-Parameter is a number or a variable name. Parameter must be surrounded with double braces `{{<parameter>}}`. 
+Text may contain or may not contain parameters. Parameter must be surrounded with double braces `{{<parameter>}}`.
+Parameter must be specified by the name or a sequence number. 
 
 Example:
 ```json
@@ -69,7 +69,7 @@ textManager.getText('button.save'); // 'button.save' - there is no text for the 
 ### Middleware
 
 In some cases addition text modifications are needed, e.g. parsing markdown, formatting numbers, dates and etc.
-This can be reached by using `TextManager` with a custom list of [middleware](#middleware).
+This can be reached by extending `TextManager` with a custom list of [middleware](#middleware).
 
 Middleware is a function which receives `text`, `parameters` and `code` and must return a text.
 Middleware functions are being executed one by one in sequence. Each of them receives text from the previous one.
