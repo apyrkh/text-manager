@@ -1,6 +1,6 @@
 {
   "name": "text-manager",
-  "version": "1.0.0",
+  "version": "0.0.4",
   "description": "Lightweight extensible text manager allows to manage texts, e.g. localize texts in web app",
   "main": "index.js",
   "files": [
