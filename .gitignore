@@ -1,5 +1,5 @@
-# ignored
 .idea/
+dist/
 node_modules/
 *.log
 *.iml

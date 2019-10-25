@@ -12,8 +12,8 @@ Lightweight extensible text manager allows to manage texts, e.g. localize texts 
 
 ```javascript
 // 1. initialize TextManager
-import { DefaultTextManager } from 'text-manager';
-const textManager = new DefaultTextManager();
+import TextManager from 'text-manager';
+const textManager = TextManager.createDefaultTextManager();
 
 // 2. register text bundle
 const buttonTexts = {
@@ -52,12 +52,12 @@ Example:
 
 ### Default text manager
 
-`DefaultTextManager` is used get a parameterized text by the code. If a text is not found it returns the code.
+Default `TextManager` is used get a parameterized text by the code. If a text is not found it returns the code.
 
 Example:
 ```javascript
-import { DefaultTextManager } from 'text-manager';
-const textManager = new DefaultTextManager();
+import TextManager from 'text-manager';
+const textManager = TextManager.createDefaultTextManager();
 textManager.addTexts('buttons', buttonTexts);
 
 textManager.getText('button.open'); // 'Open'
@@ -75,7 +75,7 @@ Middleware is a function which receives `text`, `parameters` and `code` and must
 Middleware functions are being executed one by one in sequence. Each of them receives text from the previous one.
 The first one receives original text(or `undefined` if it's not found).
 
-The following middleware functions are built-in and used in `DefaultTextManager`:
+The following middleware functions are built-in and used in default `TextManager`
 - `text-manager/middleware/InsertParams` - inserts params in the text
 - `text-manager/middleware/UseCodeIfNoText` - returns the code if a text is not found
 

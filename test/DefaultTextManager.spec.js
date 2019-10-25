@@ -1,6 +1,5 @@
-import assert from 'assert';
-import { describe } from 'mocha';
-import DefaultTextManager from '../src/DefaultTextManager';
+import { assert } from 'chai';
+import TextManager from '../dist/TextManager';
 
 
 const textsBundle = {
@@ -9,11 +8,11 @@ const textsBundle = {
   'text.hello_with_named_parameter': 'Hello {{value}}',
 };
 
-describe('DefaultTextManager tests', function() {
+describe('DefaultTextManager', function() {
   let textManager;
 
   beforeEach(function() {
-    textManager = new DefaultTextManager();
+    textManager = TextManager.createDefaultTextManager();
     textManager.addTexts('text', textsBundle);
   });
 

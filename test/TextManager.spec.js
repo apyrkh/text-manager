@@ -1,6 +1,5 @@
-import assert from 'assert';
-import { describe } from 'mocha';
-import TextManager from '../src/TextManager';
+import { assert } from 'chai';
+import TextManager from '../dist/TextManager';
 
 
 const textCode = 'text.hello';
@@ -14,10 +13,10 @@ function addOneMiddleware(text) {
   return text + '1';
 }
 
-describe('TextManager tests', function() {
+describe('TextManager', function() {
   let textManager;
 
-  describe('no middleware', function() {
+  describe('without middleware', function() {
     beforeEach(function() {
       textManager = new TextManager();
     });
@@ -48,7 +47,7 @@ describe('TextManager tests', function() {
     });
   });
 
-  describe('middleware', function() {
+  describe('with middleware', function() {
     beforeEach(function() {
       textManager = new TextManager([addZeroMiddleware, addOneMiddleware]);
     });

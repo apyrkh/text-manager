@@ -1,4 +1,7 @@
-export default function insertParams(text, parameters, code) {
+import { StringArray } from '../TextManager';
+
+
+export default function insertParams(text: string, parameters?: StringArray): string {
   if (!text) return text;
   if (!parameters) return text;
 
@@ -8,7 +11,7 @@ export default function insertParams(text, parameters, code) {
   let nextText = text;
   for (let key in parameters) {
     if (parameters.hasOwnProperty(key)) {
-      nextText = text.replace('{{' + key + '}}', parameters[key]);
+      nextText = text.replace('{{' + key + '}}', parameters[key].toString());
     }
   }
 
