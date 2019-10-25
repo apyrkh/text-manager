@@ -15,18 +15,18 @@ export interface StringMap {
 }
 
 export default class TextManager {
-  private readonly middleware: Middleware[] | undefined;
+  public static createDefaultTextManager() {
+    return new TextManager([insertParams, noTextFallback]);
+  }
+
   private keys: string[] = [];
   private texts: StringMap = {};
+  private readonly middleware: Middleware[] | undefined;
 
   constructor(middleware?: Middleware[]) {
     if (middleware && !Array.isArray(middleware)) throw new TypeError('TextManager: middleware must be an array or undefined');
 
     this.middleware = middleware;
-  }
-
-  public static createDefaultTextManager() {
-    return new TextManager([insertParams, noTextFallback]);
   }
 
   public addTexts(key: string, textsBundle: StringMap) {
@@ -36,7 +36,7 @@ export default class TextManager {
     if (this.keys.indexOf(key) > -1) return;
 
     // extend texts
-    for (let code in textsBundle) {
+    for (const code in textsBundle) {
       if (textsBundle.hasOwnProperty(code)) {
         this.texts[code] = textsBundle[code];
       }

@@ -3,37 +3,10 @@
     "tslint:recommended"
   ],
   "rules": {
+    "curly": [true, "ignore-same-line"],
     "interface-name": false,
-    "max-line-length": [
-      true,
-      150
-    ],
-    "no-console": [
-      true,
-      "time",
-      "timeEnd",
-      "trace"
-    ],
-    "no-string-literal": false,
-    "object-literal-sort-keys": false,
-    "ordered-imports": false,
-    "quotemark": [
-      true,
-      "single",
-      "avoid-escape"
-    ],
-    "trailing-comma": [
-      false,
-      {
-        "multiline": "always",
-        "singleline": "never"
-      }
-    ],
-    "variable-name": [
-      true,
-      "allow-leading-underscore",
-      "ban-keywords",
-      "check-format"
-    ]
+    "max-line-length": [true, 150],
+    "no-consecutive-blank-lines": [true, 2],
+    "quotemark": [ true, "single", "avoid-escape"]
   }
 }

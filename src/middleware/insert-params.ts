@@ -9,7 +9,7 @@ export default function insertParams(text: string, parameters?: StringArray): st
 
   // insert parameters
   let nextText = text;
-  for (let key in parameters) {
+  for (const key in parameters) {
     if (parameters.hasOwnProperty(key)) {
       nextText = text.replace('{{' + key + '}}', parameters[key].toString());
     }
