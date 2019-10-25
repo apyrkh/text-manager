@@ -76,8 +76,8 @@ Middleware functions are being executed one by one in sequence. Each of them rec
 The first one receives original text(or `undefined` if it's not found).
 
 The following middleware functions are built-in and used in default `TextManager`
-- `text-manager/middleware/InsertParams` - inserts params in the text
-- `text-manager/middleware/UseCodeIfNoText` - returns the code if a text is not found
+- `text-manager/middleware/insert-params` - inserts params in the text
+- `text-manager/middleware/no-text-fallback` - returns the code if a text is not found
 
 The result of execution of the last one will be returned by `TextManger`.
 
@@ -108,12 +108,14 @@ textManager.getText('button.open') === 'Open Hello World!';
 
 ### TextManager
 
-- `constructor(middleware)`
-  - `middleware`, array of [middleware](#middleware) functions
+- `static createDefaultTextManager()` creates TextManager instance with `insert-params` and `no-text-fallback` middleware.
 
-- `addTexts(key, textsBundle)`
+- `constructor(middleware)`
+  - `middleware`, array of middleware functions
+
+- `addTexts(key, texts)`
   - `key`, string - the key of a bundle
-  - `textsBundle`, object - a flat object where key is a `code` and value is a `text`, e.g. `{ 'button.open': 'Open' }`
+  - `texts`, object - a flat object where key is a `code` and value is a `text`, e.g. `{ 'button.open': 'Open' }`
 
 - `getText(code, parameters)`
   - `code`, string - the code of a text

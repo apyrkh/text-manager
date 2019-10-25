@@ -2,7 +2,7 @@ import { assert } from 'chai';
 import TextManager from '../dist/TextManager';
 
 
-const textsBundle = {
+const texts = {
   'text.hello': 'Hello',
   'text.hello_with_numeric_parameter': 'Hello {{0}}',
   'text.hello_with_named_parameter': 'Hello {{value}}',
@@ -13,7 +13,7 @@ describe('DefaultTextManager', function() {
 
   beforeEach(function() {
     textManager = TextManager.createDefaultTextManager();
-    textManager.addTexts('text', textsBundle);
+    textManager.addTexts('text', texts);
   });
 
   it(`should return code if text with the code is not registered`, function() {

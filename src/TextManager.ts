@@ -2,16 +2,10 @@ import insertParams from './middleware/insert-params';
 import noTextFallback from './middleware/no-text-fallback';
 
 
-export type Middleware = (text: string, parameters: StringArray, code: string) => string;
+export type Middleware = (text: string, parameters: StringMap<string>, code: string) => string;
 
-export interface StringArray {
-  [key: string]: string | number;
-
-  [index: number]: string;
-}
-
-export interface StringMap {
-  [key: string]: string;
+export interface StringMap<T> {
+  [x: string]: T;
 }
 
 export default class TextManager {
@@ -20,7 +14,7 @@ export default class TextManager {
   }
 
   private keys: string[] = [];
-  private texts: StringMap = {};
+  private texts: StringMap<string> = {};
   private readonly middleware: Middleware[] | undefined;
 
   constructor(middleware?: Middleware[]) {
@@ -29,26 +23,26 @@ export default class TextManager {
     this.middleware = middleware;
   }
 
-  public addTexts(key: string, textsBundle: StringMap) {
-    if (typeof textsBundle !== 'object') throw new TypeError('TextManager: textsBundle must be an object');
+  public addTexts(key: string, texts: StringMap<string>) {
+    if (typeof texts !== 'object') throw new TypeError('TextManager: texts must be an object');
 
     // skip if resources with given key have been already registered
     if (this.keys.indexOf(key) > -1) return;
 
     // extend texts
-    for (const code in textsBundle) {
-      if (textsBundle.hasOwnProperty(code)) {
-        this.texts[code] = textsBundle[code];
+    for (const code in texts) {
+      if (texts.hasOwnProperty(code)) {
+        this.texts[code] = texts[code];
       }
     }
     this.keys.push(key);
   }
 
-  public getText(code: string, parameters: StringArray): string {
+  public getText(code: string, parameters: StringMap<string>): string {
     return this.applyMiddleware(this.texts[code], parameters, code);
   }
 
-  private applyMiddleware(text: string, parameters: StringArray, code: string) {
+  private applyMiddleware(text: string, parameters: StringMap<string>, code: string) {
     if (!this.middleware) return text;
 
     return this.middleware.reduce((prevText, middlewareItem, index) => {
