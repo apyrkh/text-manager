@@ -4,8 +4,8 @@
   "description": "Lightweight extensible text manager allows to manage texts, e.g. localize texts in web app",
   "main": "dist/TextManager.js",
   "scripts": {
-    "docs": "typedoc --out docs src",
-    "gh-pages": "rimraf docs && npm run docs && gh-pages -d docs",
+    "docs": "typedoc --out docs src && touch ./docs/.nojekyll",
+    "gh-pages": "rimraf docs && npm run docs && gh-pages -d docs -t",
     "build": "rimraf dist && tsc",
     "lint": "tslint --project .",
     "test": "mocha -r esm test/**/*.spec.js"
