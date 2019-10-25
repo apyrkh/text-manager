@@ -1,6 +1,6 @@
 import assert from 'assert';
 import { describe } from 'mocha';
-import DefaultTextManager from './DefaultTextManager';
+import DefaultTextManager from '../src/DefaultTextManager';
 
 
 const textsBundle = {

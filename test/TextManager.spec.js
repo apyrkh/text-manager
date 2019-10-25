@@ -1,6 +1,6 @@
 import assert from 'assert';
 import { describe } from 'mocha';
-import TextManager from './TextManager';
+import TextManager from '../src/TextManager';
 
 
 const textCode = 'text.hello';

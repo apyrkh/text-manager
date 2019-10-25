@@ -3,23 +3,17 @@
   "version": "1.0.0",
   "description": "Lightweight extensible text manager allows to manage texts, e.g. localize texts in web app",
   "main": "index.js",
-  "files": [
-    "/src/middleware/*",
-    "/src/TextManager.js",
-    "/src/DefaultTextManager.js"
-  ],
   "scripts": {
-    "test": "mocha -r esm src/**/*.spec.js"
+    "test": "mocha -r esm test/**/*.spec.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/apyrkh/text-manager.git"
   },
   "keywords": [
-    "js",
-    "text manager",
+    "lightweight",
     "localization",
-    "lightweight"
+    "text manager"
   ],
   "author": "Aliaksandr Pyrkh",
   "license": "MIT",
@@ -29,6 +23,6 @@
   "homepage": "https://github.com/apyrkh/text-manager#readme",
   "devDependencies": {
     "esm": "3.2.25",
-    "mocha": "6.1.4"
+    "mocha": "6.2.2"
   }
 }

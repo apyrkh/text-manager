@@ -1,7 +1,8 @@
-export default function InsertParams(text, parameters, code) {
+export default function insertParams(text, parameters, code) {
   if (!text) return text;
   if (!parameters) return text;
-  if (typeof parameters !== 'object') throw new Error('InsertParams: parameters must be either an object or an array');
+
+  if (typeof parameters !== 'object') throw new TypeError('InsertParams: parameters must be either an object or an array');
 
   // insert parameters
   let nextText = text;

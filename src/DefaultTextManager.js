@@ -1,8 +1,8 @@
-import InsertParams from './middleware/InsertParams';
-import UseCodeIfNoText from './middleware/UseCodeIfNoText';
+import insertParams from './middleware/insert-params';
+import noTextFallback from './middleware/no-text-fallback';
 import TextManager from './TextManager';
 
 
 export default function DefaultTextManager() {
-  return new TextManager([InsertParams, UseCodeIfNoText]);
+  return new TextManager([insertParams, noTextFallback]);
 }
