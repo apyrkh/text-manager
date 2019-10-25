@@ -1,0 +1,286 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>text-manager</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">text-manager</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> text-manager</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#text-manager" id="text-manager" style="color: inherit; text-decoration: none;">
+					<h1>text-manager</h1>
+				</a>
+				<p>Lightweight extensible text manager allows to manage texts, e.g. localize texts in web application</p>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h2>Installation</h2>
+				</a>
+				<p><code>npm i text-manager -S</code></p>
+				<a href="#tldr" id="tldr" style="color: inherit; text-decoration: none;">
+					<h2>TL;DR</h2>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-comment">// 1. initialize TextManager</span>
+<span class="hljs-keyword">import</span> TextManager <span class="hljs-keyword">from</span> <span class="hljs-string">'text-manager'</span>;
+<span class="hljs-keyword">const</span> textManager = TextManager.createDefaultTextManager();
+
+<span class="hljs-comment">// 2. register text bundle</span>
+<span class="hljs-keyword">const</span> buttonTexts = {
+  <span class="hljs-string">'button.open'</span>: <span class="hljs-string">'Open'</span>,
+  <span class="hljs-string">'button.open_in'</span>: <span class="hljs-string">'Open in {{0}} seconds'</span>,
+  <span class="hljs-string">'button.close_in'</span>: <span class="hljs-string">'Close in {{seconds}} seconds'</span>,
+};
+textManager.addTexts(<span class="hljs-string">'buttons'</span>, buttonTexts);
+
+<span class="hljs-comment">// 3. use it</span>
+textManager.getText(<span class="hljs-string">'button.open'</span>) === <span class="hljs-string">'Open'</span>; <span class="hljs-comment">// get a text without parameters</span>
+textManager.getText(<span class="hljs-string">'button.open_in'</span>, [<span class="hljs-number">5</span>]) === <span class="hljs-string">'Open in 5 seconds'</span>; <span class="hljs-comment">// get a text with ordered parameters</span>
+textManager.getText(<span class="hljs-string">'button.close_in'</span>, { <span class="hljs-attr">seconds</span>: <span class="hljs-number">5</span> }) === <span class="hljs-string">'Close in 5 seconds'</span>; <span class="hljs-comment">// get a text with named parameters</span></code></pre>
+				<a href="#getting-started" id="getting-started" style="color: inherit; text-decoration: none;">
+					<h2>Getting started</h2>
+				</a>
+				<p>Text manager is used to get a text or a parameterized text by the code.
+				It can also be extended for additional text changes or modifications.</p>
+				<a href="#texts-bundle" id="texts-bundle" style="color: inherit; text-decoration: none;">
+					<h3>Texts bundle</h3>
+				</a>
+				<p>Texts bundle is a plain object where a key is the <code>code</code> and a value is the <code>text</code>.
+					Text may contain or may not contain parameters. Parameter must be surrounded with double braces <code>{{&lt;parameter&gt;}}</code>.
+				Parameter must be specified by the name or a sequence number. </p>
+				<p>Example:</p>
+				<pre><code class="language-json">{
+  <span class="hljs-attr">"button.open"</span>: <span class="hljs-string">"Open"</span>,
+  <span class="hljs-attr">"button.open_in"</span>: <span class="hljs-string">"Open in {{0}} seconds"</span>,
+  <span class="hljs-attr">"button.close_in"</span>: <span class="hljs-string">"Close in {{seconds}} seconds"</span>
+}</code></pre>
+				<a href="#default-text-manager" id="default-text-manager" style="color: inherit; text-decoration: none;">
+					<h3>Default text manager</h3>
+				</a>
+				<p>Default <code>TextManager</code> is used get a parameterized text by the code. If a text is not found it returns the code.</p>
+				<p>Example:</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> TextManager <span class="hljs-keyword">from</span> <span class="hljs-string">'text-manager'</span>;
+<span class="hljs-keyword">const</span> textManager = TextManager.createDefaultTextManager();
+textManager.addTexts(<span class="hljs-string">'buttons'</span>, buttonTexts);
+
+textManager.getText(<span class="hljs-string">'button.open'</span>); <span class="hljs-comment">// 'Open'</span>
+textManager.getText(<span class="hljs-string">'button.open_in'</span>, [<span class="hljs-number">5</span>]); <span class="hljs-comment">// 'Open in 5 seconds'</span>
+textManager.getText(<span class="hljs-string">'button.close_in'</span>, { <span class="hljs-attr">seconds</span>: <span class="hljs-number">5</span> }); <span class="hljs-comment">// 'Close in 5 seconds'</span>
+textManager.getText(<span class="hljs-string">'button.save'</span>); <span class="hljs-comment">// 'button.save' - there is no text for the code</span></code></pre>
+				<a href="#middleware" id="middleware" style="color: inherit; text-decoration: none;">
+					<h3>Middleware</h3>
+				</a>
+				<p>In some cases addition text modifications are needed, e.g. parsing markdown, formatting numbers, dates and etc.
+				This can be reached by extending <code>TextManager</code> with a custom list of <a href="#middleware">middleware</a>.</p>
+				<p>Middleware is a function which receives <code>text</code>, <code>parameters</code> and <code>code</code> and must return a text.
+					Middleware functions are being executed one by one in sequence. Each of them receives text from the previous one.
+				The first one receives original text(or <code>undefined</code> if it&#39;s not found).</p>
+				<p>The following middleware functions are built-in and used in default <code>TextManager</code></p>
+				<ul>
+					<li><code>text-manager/middleware/InsertParams</code> - inserts params in the text</li>
+					<li><code>text-manager/middleware/UseCodeIfNoText</code> - returns the code if a text is not found</li>
+				</ul>
+				<p>The result of execution of the last one will be returned by <code>TextManger</code>.</p>
+				<p>Example:</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { TextManager } <span class="hljs-keyword">from</span> <span class="hljs-string">'text-manager'</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CustomMiddleware1</span>(<span class="hljs-params">text, parameters, code</span>) </span>{
+  <span class="hljs-keyword">return</span> text + <span class="hljs-string">' Hello'</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CustomMiddleware2</span>(<span class="hljs-params">text, parameters, code</span>) </span>{
+  <span class="hljs-keyword">return</span> text + <span class="hljs-string">' World!'</span>;
+}
+
+<span class="hljs-keyword">const</span> buttonTexts = {
+  <span class="hljs-string">'button.open'</span>: <span class="hljs-string">'Open'</span>,
+};
+<span class="hljs-keyword">const</span> textManager = <span class="hljs-keyword">new</span> TextManager([CustomMiddleware1, CustomMiddleware2]);
+textManager.addTexts(<span class="hljs-string">'buttons'</span>, buttonTexts);
+
+<span class="hljs-comment">// get text</span>
+textManager.getText(<span class="hljs-string">'button.open'</span>) === <span class="hljs-string">'Open Hello World!'</span>;</code></pre>
+				<a href="#api" id="api" style="color: inherit; text-decoration: none;">
+					<h2>API</h2>
+				</a>
+				<a href="#textmanager" id="textmanager" style="color: inherit; text-decoration: none;">
+					<h3>TextManager</h3>
+				</a>
+				<ul>
+					<li><p><code>constructor(middleware)</code></p>
+						<ul>
+							<li><code>middleware</code>, array of <a href="#middleware">middleware</a> functions</li>
+						</ul>
+					</li>
+					<li><p><code>addTexts(key, textsBundle)</code></p>
+						<ul>
+							<li><code>key</code>, string - the key of a bundle</li>
+							<li><code>textsBundle</code>, object - a flat object where key is a <code>code</code> and value is a <code>text</code>, e.g. <code>{ &#39;button.open&#39;: &#39;Open&#39; }</code></li>
+						</ul>
+					</li>
+					<li><p><code>getText(code, parameters)</code></p>
+						<ul>
+							<li><code>code</code>, string - the code of a text</li>
+							<li><code>parameters</code>, array/object - parameters, e.g. <code>[5, &#39;abc&#39;]</code>, <code>{ seconds: 5 }</code></li>
+						</ul>
+					</li>
+				</ul>
+				<a href="#middleware-1" id="middleware-1" style="color: inherit; text-decoration: none;">
+					<h3>Middleware</h3>
+				</a>
+				<ul>
+					<li><code>function(text, parameters, code)</code> - returns string<ul>
+							<li><code>text</code>, string - initial text or text from previous middleware</li>
+							<li><code>parameters</code>, object/array - parameters</li>
+							<li><code>code</code>, string - the code of a text</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_textmanager_.html">"<wbr>Text<wbr>Manager"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_middleware_insert_params_.html">"middleware/insert-<wbr>params"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_middleware_no_text_fallback_.html">"middleware/no-<wbr>text-<wbr>fallback"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
