@@ -1,7 +1,7 @@
 # Text manager
 
-[![npm version](https://badge.fury.io/js/text-manager.svg)](https://badge.fury.io/js/text-manager)
-[![npm](https://img.shields.io/npm/dm/text-manager.svg?colorB=brightgreen)](https://www.npmjs.com/package/text-manager)
+[![npm version](https://badge.fury.io/js/text-manager.svg)](https://www.npmjs.com/package/text-manager)
+[![npm](https://img.shields.io/npm/dm/text-manager)](https://www.npmjs.com/package/text-manager)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
