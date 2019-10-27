@@ -11,11 +11,11 @@ Lightweight extensible text manager allows to manage texts, e.g. localize texts 
 ## TL;DR
 
 ```javascript
-// 1. initialize TextManager
-import TextManager from 'text-manager';
-const textManager = TextManager.createDefaultTextManager();
+// 1. initialize
+import { createDefaultTextManager } from 'text-manager';
+const textManager = createDefaultTextManager();
 
-// 2. register text bundle
+// 2. register texts
 const buttonTexts = {
   'button.open': 'Open',
   'button.open_in': 'Open in {{0}} seconds',
@@ -23,7 +23,7 @@ const buttonTexts = {
 };
 textManager.addTexts('buttons', buttonTexts);
 
-// 3. use it
+// 3. use
 textManager.getText('button.open') === 'Open'; // get a text without parameters
 textManager.getText('button.open_in', [5]) === 'Open in 5 seconds'; // get a text with ordered parameters
 textManager.getText('button.close_in', { seconds: 5 }) === 'Close in 5 seconds'; // get a text with named parameters
@@ -33,7 +33,7 @@ textManager.getText('button.close_in', { seconds: 5 }) === 'Close in 5 seconds';
 ## Getting started
 
 Text manager is used to get a text or a parameterized text by the code.
-It can also be extended for additional text changes or modifications.
+It can also be extended for additional text changes or modifications via middleware, e.g. hiding sensitive information.
 
 ### Texts bundle
 
@@ -56,8 +56,8 @@ Default `TextManager` is used get a parameterized text by the code. If a text is
 
 Example:
 ```javascript
-import TextManager from 'text-manager';
-const textManager = TextManager.createDefaultTextManager();
+import { createDefaultTextManager } from 'text-manager';
+const textManager = createDefaultTextManager();
 textManager.addTexts('buttons', buttonTexts);
 
 textManager.getText('button.open'); // 'Open'
@@ -73,17 +73,16 @@ This can be reached by extending `TextManager` with a custom list of [middleware
 
 Middleware is a function which receives `text`, `parameters` and `code` and must return a text.
 Middleware functions are being executed one by one in sequence. Each of them receives text from the previous one.
-The first one receives original text(or `undefined` if it's not found).
+The first one receives original text or `undefined` if it doesn't exist.
+The result of the last one will be returned by `TextManger.getText`.
 
-The following middleware functions are built-in and used in default `TextManager`
-- `text-manager/middleware/insert-params` - inserts params in the text
-- `text-manager/middleware/no-text-fallback` - returns the code if a text is not found
-
-The result of execution of the last one will be returned by `TextManger`.
+The following middleware functions are built-in and used in `createDefaultTextManager`
+- `import { insert-params } from 'text-manage'` - inserts params in the text
+- `import { no-text-fallback } from 'text-manage'` - returns the code if a text is not found
 
 Example:
 ```javascript
-import { TextManager } from 'text-manager';
+import TextManager from 'text-manager';
 
 function CustomMiddleware1(text, parameters, code) {
   return text + ' Hello';
@@ -108,17 +107,15 @@ textManager.getText('button.open') === 'Open Hello World!';
 
 ### TextManager
 
-- `static createDefaultTextManager()` creates TextManager instance with `insert-params` and `no-text-fallback` middleware.
-
 - `constructor(middleware)`
   - `middleware`, array of middleware functions
 
 - `addTexts(key, texts)`
-  - `key`, string - the key of a bundle
-  - `texts`, object - a flat object where key is a `code` and value is a `text`, e.g. `{ 'button.open': 'Open' }`
+  - `key`, string - required, the key of a bundle
+  - `texts`, object - required, a flat object where key is a `code` and value is a `text`, e.g. `{ 'button.open': 'Open' }`
 
 - `getText(code, parameters)`
-  - `code`, string - the code of a text
+  - `code`, string - required, the code of a text
   - `parameters`, array/object - parameters, e.g. `[5, 'abc']`, `{ seconds: 5 }`
 
 ### Middleware

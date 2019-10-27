@@ -1,7 +1,7 @@
 import { StringMap } from '../TextManager';
 
 
-export default function insertParams(text: string, parameters?: StringMap<string>): string {
+export default function insertParams(text: string, parameters: StringMap<string> | undefined, code: string): string {
   if (!text) return text;
   if (!parameters) return text;
 

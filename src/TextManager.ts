@@ -1,29 +1,25 @@
-import insertParams from './middleware/insert-params';
-import noTextFallback from './middleware/no-text-fallback';
+export type Middleware = (text: string, parameters: StringMap<string> | undefined, code: string) => string;
 
-
-export type Middleware = (text: string, parameters: StringMap<string>, code: string) => string;
-
+// either object or array like object
 export interface StringMap<T> {
   [x: string]: T;
 }
 
-export default class TextManager {
-  public static createDefaultTextManager() {
-    return new TextManager([insertParams, noTextFallback]);
-  }
 
+export default class TextManager {
   private keys: string[] = [];
-  private texts: StringMap<string> = {};
-  private readonly middleware: Middleware[] | undefined;
+  private texts: { [key: string]: string } = {};
+  private readonly middleware: Middleware[] = [];
 
   constructor(middleware?: Middleware[]) {
-    if (middleware && !Array.isArray(middleware)) throw new TypeError('TextManager: middleware must be an array or undefined');
+    if (middleware && !Array.isArray(middleware)) throw new TypeError('TextManager: middleware must be either undefined or an array');
 
-    this.middleware = middleware;
+    if (middleware) {
+      this.middleware.push(...middleware);
+    }
   }
 
-  public addTexts(key: string, texts: StringMap<string>) {
+  public addTexts(key: string, texts: { [key: string]: string }): void {
     if (typeof texts !== 'object') throw new TypeError('TextManager: texts must be an object');
 
     // skip if resources with given key have been already registered
@@ -38,12 +34,12 @@ export default class TextManager {
     this.keys.push(key);
   }
 
-  public getText(code: string, parameters: StringMap<string>): string {
-    return this.applyMiddleware(this.texts[code], parameters, code);
+  public getText(code: string, parameters?: StringMap<string>): string {
+    return this.applyMiddleware(this.texts[code], parameters || undefined, code);
   }
 
-  private applyMiddleware(text: string, parameters: StringMap<string>, code: string) {
-    if (!this.middleware) return text;
+  private applyMiddleware(text: string, parameters: StringMap<string> | undefined, code: string): string {
+    if (this.middleware.length === 0) return text;
 
     return this.middleware.reduce((prevText, middlewareItem, index) => {
       if (typeof middlewareItem !== 'function') throw new TypeError('TextManager: middleware[' + index + '] must be a function');

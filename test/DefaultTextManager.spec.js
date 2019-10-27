@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import TextManager from '../dist/TextManager';
+import { createDefaultTextManager } from '../dist';
 
 
 const texts = {
@@ -12,7 +12,7 @@ describe('DefaultTextManager', function() {
   let textManager;
 
   beforeEach(function() {
-    textManager = TextManager.createDefaultTextManager();
+    textManager = createDefaultTextManager();
     textManager.addTexts('text', texts);
   });
 
