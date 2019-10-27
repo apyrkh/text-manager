@@ -3,6 +3,8 @@
 [![npm version](https://badge.fury.io/js/text-manager.svg)](https://www.npmjs.com/package/text-manager)
 [![npm](https://img.shields.io/npm/dm/text-manager)](https://www.npmjs.com/package/text-manager)
 
+[![Build Status](https://travis-ci.org/apyrkh/text-manager.svg?branch=master)](https://travis-ci.org/apyrkh/text-manager)
+[![Coverage Status](https://coveralls.io/repos/github/apyrkh/text-manager/badge.svg?branch=master)](https://coveralls.io/github/<username>/text-manager?branch=master)
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
 Lightweight extensible text manager allows to manage texts, e.g. localize texts in web application
