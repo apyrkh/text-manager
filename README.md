@@ -1,4 +1,9 @@
-# text-manager
+# Text manager
+
+[![npm version](https://badge.fury.io/js/text-manager.svg)](https://badge.fury.io/js/text-manager)
+[![npm](https://img.shields.io/npm/dm/text-manager.svg?colorB=brightgreen)](https://www.npmjs.com/package/text-manager)
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
 Lightweight extensible text manager allows to manage texts, e.g. localize texts in web application
 
