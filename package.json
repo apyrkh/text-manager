@@ -5,11 +5,11 @@
   "main": "dist/TextManager.js",
   "scripts": {
     "build": "rimraf dist && tsc",
-    "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "test": "nyc --reporter=html --reporter=text mocha -r esm test/**/*.spec.js",
-    "lint": "tslint --project ./tsconfig.json",
     "docs": "typedoc --out docs src && touch ./docs/.nojekyll",
-    "gh-pages": "rimraf docs && npm run docs && gh-pages -d docs -t"
+    "gh-pages": "rimraf docs && npm run docs && gh-pages -d docs -t",
+    "lint": "tslint --project ./tsconfig.json",
+    "test": "nyc mocha",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -32,11 +32,11 @@
     "@types/node": "12.11.7",
     "chai": "4.2.0",
     "coveralls": "3.0.7",
-    "esm": "3.2.25",
     "gh-pages": "2.1.1",
     "mocha": "6.2.2",
     "nyc": "14.1.1",
     "rimraf": "3.0.0",
+    "ts-node": "8.4.1",
     "tslint": "5.20.0",
     "typedoc": "0.15.0",
     "typescript": "3.6.4"
