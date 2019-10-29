@@ -2,46 +2,47 @@ import { assert } from 'chai';
 import TextManager from '../src/TextManager';
 
 
-const textCode = 'text.hello';
-const text = 'Hello';
-
-function addZeroMiddleware(text: string) {
+function addZeroMiddleware(code: string, text: string) {
   return text + '0';
 }
 
-function addOneMiddleware(text: string) {
+function addOneMiddleware(code: string, text: string) {
   return text + '1';
 }
 
-describe(TextManager.name, function() {
+describe(TextManager.name, () => {
   let textManager: TextManager;
 
-  describe('without middleware', function() {
-    beforeEach(function() {
+  const textCode = 'text.hello';
+  const text = 'Hello';
+
+
+  describe('without middleware', () => {
+    beforeEach(() => {
       textManager = new TextManager();
     });
 
-    it(`should return empty string if text with the code is not registered`, function() {
+    it('should return empty string if there is no text for the given code', () => {
       assert.strictEqual(textManager.getText(textCode), '');
     });
 
-    it('should return text by the code', function() {
+    it('should return text for the given code', () => {
       textManager.addTexts('test', {
-        [textCode]: text
+        [textCode]: text,
       });
 
       assert.strictEqual(textManager.getText(textCode), text);
     });
 
-    it('should skip multiple registrations for the same key', function() {
+    it('should not add texts for the same id multiple times', () => {
       textManager.addTexts('test', {
-        [textCode]: text
+        [textCode]: text,
       });
 
       const newCode = 'code.new_text';
       textManager.addTexts('test', {
         [textCode]: 'Overridden text',
-        [newCode]: 'Multi registration'
+        [newCode]: 'Multi registration',
       });
 
       assert.strictEqual(textManager.getText(textCode), text);
@@ -49,18 +50,18 @@ describe(TextManager.name, function() {
     });
   });
 
-  describe('with middleware', function() {
-    beforeEach(function() {
+  describe('with middleware', () => {
+    beforeEach(() => {
       textManager = new TextManager([addZeroMiddleware, addOneMiddleware]);
     });
 
-    it(`should use middleware if text with the code is not registered`, function() {
+    it('should apply middleware if there is no text for the given code', () => {
       assert.strictEqual(textManager.getText(textCode), '01');
     });
 
-    it(`should return modified by the middleware text by the code`, function() {
+    it('should apply middleware if there is a text for the given code', () => {
       textManager.addTexts('test', {
-        [textCode]: text
+        [textCode]: text,
       });
 
       assert.strictEqual(textManager.getText(textCode), `${text}01`);

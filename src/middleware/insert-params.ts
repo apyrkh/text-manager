@@ -1,7 +1,4 @@
-import { StringMap } from '../TextManager';
-
-
-export default function insertParams(text: string, parameters?: StringMap<string>): string {
+export default function insertParams(code: string, text: string, parameters?: { [key: string]: any } | [any]): string {
   let nextText = text;
 
   if (parameters) {

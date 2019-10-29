@@ -6,7 +6,9 @@
     "curly": [true, "ignore-same-line"],
     "interface-name": false,
     "max-line-length": [true, 150],
+    "member-access": false,
     "no-consecutive-blank-lines": [true, 2],
+//    "no-shadowed-variable": false,
     "quotemark": [ true, "single", "avoid-escape"]
   }
 }

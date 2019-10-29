@@ -1,15 +1,10 @@
-export type Middleware = (text: string, parameters: StringMap<string>, code: string) => string;
-
-// either object or array like object
-export interface StringMap<T> {
-  [x: string]: T;
-}
+export type Middleware = (code: string, text: string, parameters?: { [key: string]: any } | [any]) => string;
 
 
 export default class TextManager {
-  private keys: string[] = [];
-  private texts: { [key: string]: string } = {};
-  private readonly middleware: Middleware[] = [];
+  textsSetIds: string[] = [];
+  textsSet: { [key: string]: string } = {};
+  middleware: Middleware[] = [];
 
   constructor(middleware?: Middleware[]) {
     if (middleware) {
@@ -17,24 +12,24 @@ export default class TextManager {
     }
   }
 
-  public addTexts(key: string, texts: { [key: string]: string }): void {
-    // skip if resources with given key have been already registered
-    if (this.keys.indexOf(key) > -1) return;
+  addTexts(id: string, texts: { [key: string]: string }): void {
+    // skip if resources with given id have been already registered
+    if (this.textsSetIds.indexOf(id) > -1) return;
 
     for (const [key, value] of Object.entries(texts)) {
-      this.texts[key] = value;
+      this.textsSet[key] = value;
     }
 
-    this.keys.push(key);
+    this.textsSetIds.push(id);
   }
 
-  public getText(code: string, parameters?: StringMap<string>): string {
-    return this.applyMiddleware(this.texts[code] || '', parameters || Object.create(null), code);
+  getText(code: string, parameters?: { [key: string]: any } | [any]): string {
+    return this.applyMiddleware(code, this.textsSet[code] || '', parameters);
   }
 
-  private applyMiddleware(text: string, parameters: StringMap<string>, code: string): string {
+  applyMiddleware(code: string, text: string, parameters?: { [key: string]: any } | [any]): string {
     if (this.middleware.length === 0) return text;
 
-    return this.middleware.reduce((prevText, middlewareItem) => middlewareItem(prevText, parameters, code), text);
+    return this.middleware.reduce((prevText, middlewareItem) => middlewareItem(code, prevText, parameters), text);
   }
 }

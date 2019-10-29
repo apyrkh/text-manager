@@ -2,30 +2,23 @@ import { assert } from 'chai';
 import { insertParams } from '../../src';
 
 
-const texts = {
-  'text.hello': 'Hello',
-  'text.hello_with_numeric_parameter': 'Hello {{0}}',
-  'text.hello_with_named_parameter': 'Hello {{value}}',
-};
-
 describe(insertParams.name, () => {
-  it('should not modify text', function() {
+  it('should return non-parameterized text', () => {
     const text = 'any text';
 
-    assert.strictEqual(insertParams(text), text);
-    assert.strictEqual(insertParams(text, { any: 'any value' }), text);
+    assert.strictEqual(insertParams('ignored', text), text);
+    assert.strictEqual(insertParams('ignored', text, { any: 'any value' }), text);
   });
 
-  it('should insert numeric parameters', function() {
-    const text = 'Hello {{0}}';
-
-    // @ts-ignore
-    assert.strictEqual(insertParams(text, ['Peter']), 'Hello Peter');
-  });
-
-  it('should insert named parameters', function() {
+  it('should return text with inserted named parameters', () => {
     const text = 'Hello {{value}}';
 
-    assert.strictEqual(insertParams(text, { value: 'Peter' }), 'Hello Peter');
+    assert.strictEqual(insertParams('ignored', text, { value: 'Peter' }), 'Hello Peter');
+  });
+
+  it('should return text with inserted numeric parameters', () => {
+    const text = 'Hello {{0}}';
+
+    assert.strictEqual(insertParams('ignored', text, ['Peter']), 'Hello Peter');
   });
 });

@@ -42,9 +42,9 @@ textManager.getText('button.close_in', { seconds: 5 }) === 'Close in 5 seconds';
 Text manager is used to get a text or a parameterized text by the code.
 It can also be extended for additional text changes or modifications via middleware, e.g. hiding sensitive information.
 
-### Texts bundle
+### Texts set
 
-Texts bundle is a plain object where a key is the `code` and a value is the `text`.
+Texts set is a plain object where a key is the `code` and a value is the `text`.
 Text may contain or may not contain parameters. Parameter must be surrounded with double braces `{{<parameter>}}`.
 Parameter must be specified by the name or a sequence number. 
 
@@ -91,11 +91,11 @@ Example:
 ```javascript
 import TextManager from 'text-manager';
 
-function CustomMiddleware1(text, parameters, code) {
+function CustomMiddleware1(code, text) {
   return text + ' Hello';
 }
 
-function CustomMiddleware2(text, parameters, code) {
+function CustomMiddleware2(code, text) {
   return text + ' World!';
 }
 
@@ -117,8 +117,8 @@ textManager.getText('button.open') === 'Open Hello World!';
 - `constructor(middleware)`
   - `middleware`, array of middleware functions
 
-- `addTexts(key, texts)`
-  - `key`, string - required, the key of a bundle
+- `addTexts(id, texts)`
+  - `id`, string - required, the id of a texts
   - `texts`, object - required, a flat object where key is a `code` and value is a `text`, e.g. `{ 'button.open': 'Open' }`
 
 - `getText(code, parameters)`
@@ -127,7 +127,7 @@ textManager.getText('button.open') === 'Open Hello World!';
 
 ### Middleware
 
-- `function(text, parameters, code)` - returns string
+- `function(code, text, parameters)` - returns string
+  - `code`, string - the code of a text
   - `text`, string - initial text or text from previous middleware
   - `parameters`, object/array - parameters
-  - `code`, string - the code of a text
