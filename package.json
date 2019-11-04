@@ -4,12 +4,16 @@
   "description": "Lightweight extensible text manager allows to manage texts, e.g. localize texts in web app",
   "main": "dist/TextManager.js",
   "scripts": {
-    "build": "rimraf dist && tsc",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "docs": "typedoc --out docs src && touch ./docs/.nojekyll",
     "gh-pages": "rimraf docs && npm run docs && gh-pages -d docs -t",
     "lint": "tslint --project ./tsconfig.json",
+    "build": "rimraf dist && tsc",
     "test": "nyc mocha",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+    "ci": "npm run lint && npm run build && npm run test",
+    "postversion": "git push && git push --tags",
+    "prepublishOnly": "npm run ci",
+    "preversion": "npm run ci"
   },
   "repository": {
     "type": "git",
