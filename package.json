@@ -11,9 +11,9 @@
     "build": "rimraf dist && tsc",
     "test": "nyc mocha",
     "ci": "npm run lint && npm run build && npm run test",
+    "preversion": "npm run ci",
     "postversion": "git push && git push --tags",
-    "prepublishOnly": "npm run ci",
-    "preversion": "npm run ci"
+    "prepublishOnly": "npm run ci"
   },
   "repository": {
     "type": "git",
