@@ -3,7 +3,7 @@
 [![npm version](https://badge.fury.io/js/text-manager.svg)](https://www.npmjs.com/package/text-manager)
 [![npm](https://img.shields.io/npm/dm/text-manager)](https://www.npmjs.com/package/text-manager)
 
-[![Build Status](https://travis-ci.org/apyrkh/text-manager.svg?branch=master)](https://travis-ci.org/apyrkh/text-manager)
+[![Build Status](https://travis-ci.com/apyrkh/text-manager.svg?branch=master)](https://travis-ci.com/apyrkh/text-manager)
 [![Coverage Status](https://coveralls.io/repos/github/apyrkh/text-manager/badge.svg?branch=master)](https://coveralls.io/github/apyrkh/text-manager?branch=master)
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
