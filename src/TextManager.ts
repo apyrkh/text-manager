@@ -17,8 +17,8 @@ export default class TextManager {
     // skip if texts with given key have been already registered
     if (this.keys.indexOf(key) > -1) return;
 
-    for (const [key, value] of Object.entries(texts)) {
-      this.texts[key] = value;
+    for (const [textKey, textValue] of Object.entries(texts)) {
+      this.texts[textKey] = textValue;
     }
 
     this.keys.push(key);
