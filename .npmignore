@@ -5,3 +5,8 @@ docs/
 src/
 test/
 .gitignore
+.mocharc.js
+.nycrc.json
+.travis.yml
+tsconfig.json
+tslint.json

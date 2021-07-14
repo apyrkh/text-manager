@@ -1,9 +1,10 @@
-export type Middleware = (code: string, text: string, parameters?: { [key: string]: any } | [any]) => string;
+export type Middleware = (code: string, text: string, parameters?: TextParameters) => string;
+export type TextParameters = Record<string, any> | [any];
 
 
 export default class TextManager {
-  textsSetIds: string[] = [];
-  textsSet: { [key: string]: string } = {};
+  keys: string[] = [];
+  texts: Record<string, string> = {};
   middleware: Middleware[] = [];
 
   constructor(middleware?: Middleware[]) {
@@ -12,22 +13,22 @@ export default class TextManager {
     }
   }
 
-  addTexts(id: string, texts: { [key: string]: string }): void {
-    // skip if resources with given id have been already registered
-    if (this.textsSetIds.indexOf(id) > -1) return;
+  addTexts(key: string, texts: Record<string, string>): void {
+    // skip if texts with given key have been already registered
+    if (this.keys.indexOf(key) > -1) return;
 
     for (const [key, value] of Object.entries(texts)) {
-      this.textsSet[key] = value;
+      this.texts[key] = value;
     }
 
-    this.textsSetIds.push(id);
+    this.keys.push(key);
   }
 
-  getText(code: string, parameters?: { [key: string]: any } | [any]): string {
-    return this.applyMiddleware(code, this.textsSet[code] || '', parameters);
+  getText(code: string, parameters?: TextParameters): string {
+    return this.applyMiddleware(code, this.texts[code] || '', parameters);
   }
 
-  applyMiddleware(code: string, text: string, parameters?: { [key: string]: any } | [any]): string {
+  private applyMiddleware(code: string, text: string, parameters?: TextParameters): string {
     if (this.middleware.length === 0) return text;
 
     return this.middleware.reduce((prevText, middlewareItem) => middlewareItem(code, prevText, parameters), text);
