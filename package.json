@@ -1,6 +1,6 @@
 {
   "name": "text-manager",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Lightweight extensible text manager allows to manage texts, e.g. localize texts in web app",
   "main": "build/dist/index.js",
   "module": "build/next/index.js",
