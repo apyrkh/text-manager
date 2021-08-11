@@ -7,7 +7,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/apyrkh/text-manager/badge.svg?branch=master)](https://coveralls.io/github/apyrkh/text-manager?branch=master)
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
-Lightweight extensible text manager allows to manage texts, e.g. localize texts in web application
+Lightweight, extensible text manager for managing texts, such as localizing texts in a web application
 
 
 ## Installation
