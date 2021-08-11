@@ -1,7 +1,7 @@
 .idea/
 .nyc_output/
+build/
 coverage/
-dist/
 docs/
 node_modules/
 *.log
