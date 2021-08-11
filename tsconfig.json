@@ -4,7 +4,7 @@
     "module": "CommonJS",
     "outDir": "./build/dist",
     "strict": true,
-    "target": "ES5"
+    "target": "ES6"
   },
   "include": [
     "src/**/*.ts"

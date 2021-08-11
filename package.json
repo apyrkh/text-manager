@@ -10,7 +10,7 @@
     "docs": "typedoc --out docs src && touch ./docs/.nojekyll",
     "gh-pages": "rimraf docs && npm run docs && gh-pages -d docs -t",
     "lint": "tslint --project ./tsconfig.json",
-    "build": "rimraf build && tsc && tsc --target es5 --module esnext --outDir ./build/next",
+    "build": "rimraf build && tsc && tsc --module esnext --outDir ./build/next",
     "test": "nyc mocha",
     "ci": "npm run lint && npm run build && npm run test",
     "preversion": "npm run ci",
