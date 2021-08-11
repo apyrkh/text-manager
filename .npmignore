@@ -4,6 +4,7 @@ coverage/
 docs/
 src/
 test/
+.coveralls.yml
 .gitignore
 .mocharc.js
 .nycrc.json
